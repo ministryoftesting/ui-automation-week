@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "ui-automation-week"
+version = "0.1.0"
+description = "MoT UI Automation Week"
+
+[tool.poetry.dependencies]
+pyleniumio = "^1.12.1"
+
+[tool.poetry.dev-dependencies]
+autopep8 = "^1.5.4"
+flake8 = "^3.8.4"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
