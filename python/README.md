@@ -25,7 +25,7 @@ python -m pip install .
 
 ## Pylenium
 
-The only package that you really need to install is `Pylenium`. This is a thin wrapper on top of Selenium WebDriver and includes the Pytest testing framework.
+The only package that you really need to install is `Pylenium`. This is a thin wrapper on top of Selenium WebDriver and includes the Pytest testing framework. However, this means that Selenium is _already_ installed, so if you feel more comfortable with pure Selenium, you can use it directly instead.
 
 > To find out more, visit the [Official Documentation](https://elsnoman.gitbook.io/pylenium/)
 
