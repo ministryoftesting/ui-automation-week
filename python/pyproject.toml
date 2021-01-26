@@ -2,6 +2,7 @@
 name = "ui-automation-week"
 version = "0.1.0"
 description = "MoT UI Automation Week"
+authors = ["Carlos Kidman <@CarlosKidman>"]
 
 [tool.poetry.dependencies]
 pyleniumio = "^1.12.1"
