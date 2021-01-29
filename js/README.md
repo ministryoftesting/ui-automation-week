@@ -18,3 +18,7 @@ To get started with each challenge:
 
 In the same terminal / command window, enter the following command to run the existing tests
 * `npx wdio wdio.conf.js`
+
+## WebdriverIO
+
+As part of the install above, [Webdriver.io](https://webdriver.io/) will be installed, which includes an implementation of the Webdriver protocol. Check out the link for further documentation. 
