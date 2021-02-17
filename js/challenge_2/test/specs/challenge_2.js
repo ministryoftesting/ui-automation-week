@@ -13,19 +13,16 @@ describe('Challenge 2 tests', () => {
 
     // Test one: Check to see if you can log in with valid credentials
     it('should be able to login', () => {
-        browser.url('https://automationintesting.online/#/')
-        $('footer p a:nth-child(5)').click();
-        $('//div[@class=\"form-group\"][1]/input').click();
-        $('//div[@class=\"form-group\"][1]/input').setValue('admin');
-        $('//div[@class=\"form-group\"][2]/input').setValue('password');
+        browser.url('https://automationintesting.online/#/');
+        $('a[href="/#/admin"]').click();
+        $('[data-testid="username"]').click();
+        $('[data-testid="username"]').setValue('admin');
+        $('[data-testid="password"]').setValue('password');
 
-        $('button.float-right').click();
+        $('[data-testid="submit"]').click();
 
-        browser.pause(3000);
-        const element = $('div.navbar-collapse');
-        const title = element.getText();
-
-        expect(title).toContain('Rooms');
+        const element = $('=Rooms');
+        
     })
 
     //Test two: Check to see if rooms are saved and displayed in the UI
