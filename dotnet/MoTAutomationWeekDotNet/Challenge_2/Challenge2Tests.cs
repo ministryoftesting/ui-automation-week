@@ -18,30 +18,56 @@ namespace Challenge_2
 
     public class Challenge2Tests
     {
-        //  Test one: Check to see if you can log in with valid credentials
-        [Test]
-        public void VerifyCanLoginWithValidCredentials()
+        IWebDriver driver;
+        AdminPage adminPage;
+
+        [SetUp]
+        public void SetUp()
         {
-            IWebDriver driver;
             driver = new ChromeDriver();
-            driver.Url = "https://automationintesting.online/#/admin";
-            driver.FindElement(By.CssSelector("footer p a:nth-child(5)")).Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath("//div[@class=\"form-group\"][1]/input")).SendKeys("admin");
-            Thread.Sleep(1000);
-            driver.FindElement(By.XPath("//div[@class=\"form-group\"][2]/input")).SendKeys("password");
-            Thread.Sleep(1000);
-            driver.FindElement(By.ClassName("float-right")).Click();
+        }
 
-            Thread.Sleep(5000);
-
-            IWebElement webElement = driver.FindElement(By.ClassName("navbar-collapse"));
-            Console.WriteLine(webElement.Text);
-            Boolean title = webElement.Text.Contains("Rooms");
-
-            Assert.IsTrue(title);
+        [TearDown]
+        public void TearDown()
+        {
             driver.Close();
         }
+
+        //  Test one: Check to see if you can log in with valid credentials
+        //Test one: Refactored
+        [Test]
+        public void VerifyLoginWithValidCredentialsDisplaysLogoutLink()
+        {
+            driver.Url = "https://automationintesting.online/#/admin";
+            adminPage = new AdminPage(driver);
+            adminPage.LoginToAdminPage("admin", "password");
+
+            Assert.IsTrue(adminPage.IsLogoutLinkDisplayed());
+        }
+
+        //[Test] //Test one: Original
+        //public void VerifyCanLoginWithValidCredentials()
+        //{
+        //    IWebDriver driver;
+        //    driver = new ChromeDriver();
+        //    driver.Url = "https://automationintesting.online/#/admin";
+        //    driver.FindElement(By.CssSelector("footer p a:nth-child(5)")).Click();
+        //    Thread.Sleep(1000);
+        //    driver.FindElement(By.XPath("//div[@class=\"form-group\"][1]/input")).SendKeys("admin");
+        //    Thread.Sleep(1000);
+        //    driver.FindElement(By.XPath("//div[@class=\"form-group\"][2]/input")).SendKeys("password");
+        //    Thread.Sleep(1000);
+        //    driver.FindElement(By.ClassName("float-right")).Click();
+
+        //    Thread.Sleep(5000);
+
+        //    IWebElement webElement = driver.FindElement(By.ClassName("navbar-collapse"));
+        //    Console.WriteLine(webElement.Text);
+        //    Boolean title = webElement.Text.Contains("Rooms");
+
+        //    Assert.IsTrue(title);
+        //    driver.Close();
+        //}
 
         //  Test two: Check to see if rooms are saved and displayed in the UI
         [Test]

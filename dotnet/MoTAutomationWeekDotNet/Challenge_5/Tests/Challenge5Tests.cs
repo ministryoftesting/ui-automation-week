@@ -4,6 +4,8 @@ using OpenQA.Selenium;
 
 namespace Challenge_5
 {
+    [TestFixture(DriverFactory.BrowserType.Chrome)]
+    [TestFixture(DriverFactory.BrowserType.Firefox)]
     public class Challenge5Tests
     {
         //    Welcome to UI Automation Challenge 5
@@ -14,13 +16,19 @@ namespace Challenge_5
         //    browser factory so that it can support the running of the
         //    test across multiple browsers
 
-        IWebDriver driver;
+        private IWebDriver driver;
+        private DriverFactory.BrowserType browser;
+
+        public Challenge5Tests(DriverFactory.BrowserType browser)
+        {
+            this.browser = browser;
+        }
 
         [SetUp]
         public void BuildDriver()
         {
             DriverFactory driverFactory = new DriverFactory();
-            driver = driverFactory.Create();
+            driver = driverFactory.GetWebDriver(browser);
         }
 
         [TearDown]

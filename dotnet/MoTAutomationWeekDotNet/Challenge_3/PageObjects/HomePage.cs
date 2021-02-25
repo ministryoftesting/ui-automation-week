@@ -18,6 +18,15 @@ namespace Challenge_3.PageObjects
             get { return Driver.FindElements(By.CssSelector(".hotel-img")); }
         }
 
+        private IWebElement hotelRoomInfoFirstDiv
+        {
+            get
+            {
+                var elems = Driver.FindElements(By.CssSelector(".hotel-room-info"));
+                return elems[0];
+            }
+        }
+
         private IReadOnlyCollection<IWebElement> imgMaps
         {
             get { return Driver.FindElements(By.CssSelector(".map img")); }
@@ -46,6 +55,11 @@ namespace Challenge_3.PageObjects
         public int GetMapImageCount()
         {
             return imgMaps.Count;
+        }
+
+        public IWebElement GetFirstRoomInfo()
+        {
+            return hotelRoomInfoFirstDiv;
         }
     }
 }

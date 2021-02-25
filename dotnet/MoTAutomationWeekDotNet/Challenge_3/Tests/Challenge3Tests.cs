@@ -1,3 +1,5 @@
+using Applitools;
+using Applitools.Selenium;
 using Challenge_3.PageObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -14,18 +16,26 @@ namespace Challenge_3
 
     public class Challenge3Tests
     {
-        IWebDriver driver;
+        private IWebDriver driver;
+        private EyesRunner runner;
+        private Eyes eyes;
 
         [SetUp]
         public void StartDriver()
         {
             driver = new ChromeDriver();
+            runner = new ClassicRunner();
+            eyes = new Eyes(runner);
+            eyes.ApiKey = "put_your_api_key_here";
+            eyes.ServerUrl = "https://eyesapi.applitools.com";
         }
 
         [TearDown]
         public void CloseBrowser()
         {
             driver.Close();
+            eyes.AbortIfNotClosed();
+            TestResultsSummary allTestResults = runner.GetAllTestResults();
         }
 
         [Test]
@@ -44,10 +54,29 @@ namespace Challenge_3
             Assert.AreEqual(16, mapCounts);
         }
 
-        //[Test]
-        //public void YourTurn()
-        //{
-        //    //Create your own demonstration of a visual check
-        //}
+        [Test]
+        public void CheckHomePageDataWithApplitools()
+        {
+            eyes.Open(driver, "UI Week dotnet", "CheckHomePageDataWithApplitools", new System.Drawing.Size(800, 600));
+
+            driver.Url = "https://automationintesting.online/";
+            HomePage homePage = new HomePage(driver);
+
+            eyes.CheckWindow("home page");
+
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", homePage.GetHotelLogo());
+            //string imgUrl = homePage.GetHotelLogo().GetAttribute("src");
+            //Assert.AreEqual("https://www.mwtestconsultancy.co.uk/img/rbp-logo.png", imgUrl);
+            eyes.CheckWindow("After GetHotelLogo");
+
+            //int roomImageCount = homePage.GetRoomImageCount();
+            //Assert.AreEqual(1, roomImageCount);
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", homePage.GetFirstRoomInfo());
+            eyes.CheckWindow("After GetFirstRoomInfo");
+
+            //int mapCounts = homePage.GetMapImageCount();
+            //Assert.AreEqual(16, mapCounts);
+            eyes.Close();
+        }
     }
 }
